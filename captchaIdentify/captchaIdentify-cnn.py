@@ -28,7 +28,7 @@ IMAGE_WIDTH = 160
 #最后将rgb转换成1维的灰度图
 IMAGE_CHANNEL = 1
 #图片变化系数
-IMAGE_SCALE = 255
+IMAGE_SCALE = 1
 
 
 #生成一个随机4位验文本证码（生成label）
@@ -281,6 +281,7 @@ X = tf.placeholder(tf.float32, [None, IMAGE_HEIGHT*IMAGE_WIDTH])
 Y = tf.placeholder(tf.float32, [None, MAX_CAPTCHA*CHAR_SET_LEN])
 #dropout
 keep_prob = tf.placeholder(tf.float32)
+learning_rate = 0.001
 
 
 #定义一个验证码识别cnn网络
@@ -309,7 +310,7 @@ def train_crack_captcha_cnn():
     #计算loss
     loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=output, labels=Y))
     #定义优化器
-    optimizer = tf.train.AdamOptimizer(learning_rate=0.01).minimize(loss)
+    optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(loss)
 
     #计算预测值
     predict = tf.reshape(output, [-1, MAX_CAPTCHA, CHAR_SET_LEN])
@@ -333,11 +334,13 @@ def train_crack_captcha_cnn():
         while True:
             batch_x, batch_y = get_next_batch(128)
             _, loss_, max_idx_p_, max_idx_l_, correct_pred_ = sess.run([optimizer, loss, max_idx_p, max_idx_l, correct_pred],
-                                                                        feed_dict={X: batch_x, Y: batch_y, keep_prob: 0.8})
-            print("loss:", step, loss_)
+                                                                        feed_dict={X: batch_x, Y: batch_y, keep_prob: 1.})
+            acc_ = sess.run(accuracy, feed_dict={X: batch_x, Y: batch_y, keep_prob: 1.})
+            print("loss:", step, loss_, acc_)
             #print(max_idx_p_)
             #print(max_idx_l_)
             #print(correct_pred_)
+
 
             #每10 step计算一次准确率  
             if step % 10 == 0:

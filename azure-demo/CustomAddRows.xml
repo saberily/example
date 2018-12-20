@@ -1,0 +1,31 @@
+<!-- Defined a module using an R Script -->
+<Module name="Custom Add Rows">
+    <Owner>Microsoft Corporation</Owner>
+    <Description>Appends one dataset to another. Dataset 2 is concatenated to Dataset 1 when Swap is FALSE, and vice versa when Swap is TRUE.</Description>
+
+<!-- Specify the base language, script file and R function to use for this module. -->        
+    <Language name="R" 
+     sourceFile="CustomAddRows.R" 
+     entryPoint="CustomAddRows" />  
+
+<!-- Define module input and output ports -->
+<!-- Note: The values of the id attributes in the Input and Arg elements must match the parameter names in the R Function CustomAddRows defined in CustomAddRows.R. -->
+    <Ports>
+        <Input id="dataset1" name="Dataset 1" type="DataTable">
+            <Description>First input dataset</Description>
+        </Input>
+        <Input id="dataset2" name="Dataset 2" type="DataTable">
+            <Description>Second input dataset</Description>
+        </Input>
+        <Output id="dataset" name="Dataset" type="DataTable">
+            <Description>The combined dataset</Description>
+        </Output>
+    </Ports>
+
+<!-- Define module parameters -->
+    <Arguments>
+        <Arg id="swap" name="Swap" type="bool" >
+            <Description>Swap input datasets.</Description>
+        </Arg>
+    </Arguments>
+</Module>——
