@@ -1,0 +1,5 @@
+PyQt5
+matplotlib
+bs4
+requests
+pymySQL

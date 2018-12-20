@@ -9,3 +9,6 @@ conda create -n tensorflow-gpu python=3.6
 #tensorflow安装
 pip install --ignore-installed --upgrade tensorflow
 pip install --ignore-installed --upgrade tensorflow-gpu
+
+#根据文件内容安装python库
+pip install -r filename

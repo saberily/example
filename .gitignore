@@ -1,1 +1,5 @@
 .vscode/settings.json
+e-travel/Video/
+crawl-JD/Video/
+handwrittenIdent/MNIST Test 10k 28x28 dense.csv
+handwrittenIdent/MNIST Train 60k 28x28 dense.csv

@@ -12,7 +12,7 @@ class Config:
 
 # the config for development
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@127.0.0.1:3306/travel'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@192.168.0.104:3306/travel'
     DEBUG = True
 
 # define the config
