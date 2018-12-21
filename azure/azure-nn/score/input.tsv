@@ -1,0 +1,3 @@
+Name	Type	Description
+Trained model	ILearner interface	Trained predictive model
+Dataset	Data Table	Input test dataset

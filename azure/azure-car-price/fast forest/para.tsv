@@ -1,0 +1,20 @@
+Name	Type	Range	Optional	Description	Default
+Create trainer mode	CreateLearnerMode	List:Single Parameter|Parameter Range	Required	Single Parameter	Create advanced learner options
+Number of Trees	Integer		mode:Single Parameter	100	Specify the number of trees to be constructed
+Number of Leaves	Integer		mode:Single Parameter	20	Specify the maximum number of leaves per tree. The default number is 20
+Minimum number of training instances required to form a leaf	Integer		mode:Single Parameter	10	Indicates the minimum number of training instances required to form a leaf
+Bagging fraction	Float		mode:Single Parameter	0.7	Specifies the fraction of training data to use for each tree
+Feature fraction	Float		mode:Single Parameter	0.7	Specifies the fraction of features (chosen randomly) to use for each tree
+Split fraction	Float		mode:Single Parameter	0.7	Specifies the fraction of features (chosen randomly) to use for each split
+Quantile sample count	Integer	Max: 2147483647	mode:Single Parameter	100	Specifies number of instances used in each node to estimate quantiles
+Quantiles to be estimated	String		mode:Single Parameter	0.25;0.5;0.75	Specifies the quantile to be estimated
+Random number seed	Integer		Optional		Provide a seed for the random number generator used by the model. Leave blank for default.
+Allow unknown categorical levels	Boolean		Required	TRUE	If true, create an additional level for each categorical column. Levels in the test dataset not available in the training dataset are mapped to this additional level.
+Maximum number of leaves per tree	ParameterRangeSettings	[16;128]	mode:Parameter Range	16; 32; 64	Specify range for the maximum number of leaves allowed per tree
+Number of trees constructed	ParameterRangeSettings	[1;256]	mode:Parameter Range	16; 32; 64	Specify the range for the maximum number of trees that can be created during training
+Minimum number of samples per leaf node	ParameterRangeSettings	[1;10]	mode:Parameter Range	1; 5; 10	Specify the range for the minimum number of cases required to form a leaf
+Range for bagging fraction	ParameterRangeSettings	[0.25;1.0]	mode:Parameter Range	0.25; 0.5; 0.75	Specifies the range for fraction of training data to use for each tree
+Range for feature fraction	ParameterRangeSettings	[0.25;1.0]	mode:Parameter Range	0.25; 0.5; 0.75	Specifies the range for fraction of features (chosen randomly) to use for each tree
+Range for split fraction	ParameterRangeSettings	[0.25;1.0]	mode:Parameter Range	0.25; 0.5; 0.75	Specifies the range for fraction of features (chosen randomly) to use for each split
+Sample count used to estimate the quantiles	Integer		mode:Parameter Range	100	Sample count used to estimate the quantiles
+Required quantile values	String		mode:Parameter Range	0.25;0.5;0.75	Required quantile value used during parameter sweep

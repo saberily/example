@@ -1,0 +1,2 @@
+Name	Range	Type	Default	Description
+Select columns	any	ColumnSelection		Select columns to keep in the projected dataset.

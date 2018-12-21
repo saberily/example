@@ -1,0 +1,2 @@
+Name	Type	Description
+Untrained model	ILearner interface	An untrained multiclass classification model

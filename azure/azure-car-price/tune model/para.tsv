@@ -1,0 +1,7 @@
+Name	Range	Type	Default	Description
+Specify parameter sweeping mode	List	Sweep Methods	Random sweep	Sweep entire grid on parameter space, or sweep with using a limited number of sample runs
+Maximum number of runs on random sweep	[1;10000]	Integer	5	Execute maximum number of runs using random sweep
+Random seed	any	Integer	0	Provide a value to seed the random number generator
+Label column	any	ColumnSelection		Label column
+Metric for measuring performance for classification	List	Binary Classification Metric Type	Accuracy	Select the metric used for evaluating classification models
+Metric for measuring performance for regression	List	RegressionMetric Type	Mean absolute error	Select the metric used for evaluating regression models

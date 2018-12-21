@@ -1,0 +1,4 @@
+Name	Type	Description
+Untrained model	ILearner interface	Untrained model for parameter sweep
+Training dataset	Data Table	Input dataset for training
+Validation dataset	Data Table	Input dataset for validation (for Train/Test validation mode). This input is optional.

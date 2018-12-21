@@ -1,0 +1,2 @@
+Name	Type	Description
+Untrained model	ILearner interface	An untrained quantile regression model that can be connected to the Train Generic Model or Cross Validate Model modules.
