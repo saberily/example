@@ -1,0 +1,2 @@
+Name	Type	Range	Optional	Description	Default
+Splitting mode	Split mode	Split Rows, Recommender Split, Regular Expression, or Relative Expression	Required	Split Rows	Choose the method for splitting the dataset

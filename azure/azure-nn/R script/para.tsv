@@ -1,0 +1,7 @@
+Name	Range	Type	Default	Description
+R Script	Any	StreamReader		Specify a StreamReader that points to the R script sources.
+Random Seed	>=0	Integer		Define a random seed value for use inside the R environment.
+
+Equivalent to \"set.seed(value)\".
+
+This parameter is optional.

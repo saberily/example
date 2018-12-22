@@ -1,0 +1,3 @@
+Name	Type	Description
+Sweep results	Data Table	Results metric for parameter sweep runs
+Trained best model	ILearner interface	Model with best performance on the training dataset

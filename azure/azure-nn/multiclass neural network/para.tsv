@@ -1,0 +1,11 @@
+Name	Range	Type	Default	Description
+Hidden layer specification	List	Neural Network Topology	Fully-connected case	Specify the architecture of the hidden layer or layers
+The initial learning weights diameter	>=double.Epsilon	Float	0.1	Specify the node weights at the start of the learning process
+The learning rate	[double.Epsilon;1.0]	Float	0.1	Specify the size of each step in the learning process
+The momentum	[0.0;1.0]	Float	0	Specify a weight to apply during learning to nodes from previous iterations
+Neural network definition	Any	StreamReader		When you select Custom definition script, type a valid script expression on each line to define the layers, nodes, and behavior of a custom neural network
+The type of normalizer	List	Normalization Method	Minimum-maximum normalizer	Select the type of normalization to apply to learning examples
+Number of learning iterations	>=1	Integer	100	Specify the number of iterations while learning
+Shuffle examples	Any	Boolean	TRUE	Select this option to change the order of instances between learning iterations
+Random number seed	Any	Integer		Specify a numeric seed to use for random number generation. Leave blank to use the default seed.
+Allow unknown categorical levels	Any	Boolean	TRUE	Indicate whether an additional level should be created for unknown categories. If the test dataset contains categories that are not present in the training dataset, they are mapped to this unknown level.

@@ -1,0 +1,3 @@
+Name	Type	Description
+Result Dataset	Data Table	Output dataset
+R Device	Data Table	Console output and PNG graphics device from the R interpreter

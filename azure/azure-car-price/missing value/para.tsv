@@ -1,0 +1,4 @@
+Name	Range	Type	Default	Description
+For missing values	List (subset)	Handling policy	Custom substitution value	Choose the method for handling missing values.
+Co lumns with allvalues missing	Any	ColumnsWithAllValuesMissing	KeepColumns	Indicate if columns with all values missing should be preserved in the output.
+Missing values indicator column	Any	GenerateMissingValueIndicatorColumns	DoNotGenerate	Select this option to add a column to the dataset that indicatesss wwwhetheeer that describes missing value handling should be added to the dataset.
