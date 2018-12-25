@@ -1,0 +1,18 @@
+{
+    "Module": {
+        "type": "数据集",
+        "name": "MNIST Test 10k 28x28 dense.csv",
+        "Owner": "QCF",
+        "Description": "MNIST测试数据集",
+        "Ports": {
+            "Output": [
+                {
+                    "id": "dataset",
+                    "name": "输出节点",
+                    "type": "DataTable",
+                    "Description": "MNIST测试数据集"
+                }
+            ]
+        }
+    }
+}

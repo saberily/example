@@ -3,3 +3,5 @@ e-travel/Video/
 crawl-JD/Video/
 handwrittenIdent/MNIST Test 10k 28x28 dense.csv
 handwrittenIdent/MNIST Train 60k 28x28 dense.csv
+azure/nn-demo/test-data/MNIST Test 10k 28x28 dense.csv
+azure/nn-demo/train-data/MNIST Train 60k 28x28 dense.csv

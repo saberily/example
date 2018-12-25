@@ -1,0 +1,35 @@
+{
+    "Module": {
+        "type": "NeuralNetwork",
+        "name": "multiclass neural network",
+        "Owner": "QCF",
+        "Description": "创建一个多层神经网络模型",
+        "Language": {
+            "name": "Python",
+            "sourceFile": "MulticlassNeuralNetwork.py",
+            "entryPoint": "MNNCreate"
+        },
+        "Ports": {
+            "Input": null,
+            "Output": [
+                {
+                    "id": "RawLearner",
+                    "name": "Learner",
+                    "type": "TensorLearner",
+                    "Description": "输出锚点"
+                }
+            ]
+        },
+        "Arguments": [
+            {
+                "id": "input",
+                "name": "设置输入图像(高x宽x通道数)",
+                "type": "List",
+                "description": "输入图像参数",
+                "Default": [28,28,1],
+            },
+            {
+            }
+        ]
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "Module": {
+        "type": "数据集",
+        "name": "MNIST Train 60k 28x28 dense.csv",
+        "Owner": "QCF",
+        "Description": "MNIST训练数据集",
+        "Ports": {
+            "Output": [
+                {
+                    "id": "dataset",
+                    "name": "输出节点",
+                    "type": "DataTable",
+                    "Description": "MNIST训练数据集"
+                }
+            ]
+        }
+    }
+}
