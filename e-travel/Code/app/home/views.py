@@ -211,3 +211,11 @@ def contact():
         flash("发送成功！", "ok")        # 用flask存储发送成功消息
         form.content.data = ''           # 设置内容为空
     return render_template('home/contact.html',form=form) # 渲染模板，并传递表单数据
+
+#test
+@home.route("/test/")
+def test():
+    """
+    test
+    """
+    return render_template('test/extend.html')

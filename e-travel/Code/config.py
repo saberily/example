@@ -15,7 +15,7 @@ class DevelopmentConfig(Config):
     #其他flask_sqlalchemy不常用配置
     #SQLALCHEMY_ECHO SQLALCHEMY_RECORD_QUERIES SQLALCHEMY_NATIVE_UNICODE
     #数据库+数据库驱动类型://用户名:密码@hostip:port/数据库名
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@192.168.0.104:3306/travel'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@192.168.0.106:3306/travel'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
     #flask app 运行debug模式
