@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>index</title>
+    </head>
+    <body>
+        {{ name }}
+        {{ dic['key1'] }}
+        {{ dic['key2'] }}
+        {{ name | upper }}
+        {{ name | lower }}
+        {{ "<h1>hello</h1>" | safe }}
+
+        {% if name == 'zhangsan' %}
+        hello,zhangsan
+        {% else %}
+        hello,nobody
+        {% endif %}
+
+        {% for (temp, value) in dic.items() %}
+        <p> {{ temp }} : {{ value }} </p>
+        {% endfor %}
+    </body>
+</html>
