@@ -21,3 +21,4 @@ k8s/k8s_docker_images_1.10.0/k8s.gcr.io#k8s-dns-kube-dns-amd64.tar
 k8s/k8s_docker_images_1.10.0/k8s.gcr.io#k8s-dns-dnsmasq-nanny-amd64.tar
 k8s/k8s_docker_images_1.10.0/k8s.gcr.io#etcd-amd64.tar
 k8s/k8s_docker_images_1.10.0/gcr.io#google_containers#etcd.tar
+opencv/
