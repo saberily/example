@@ -6,3 +6,119 @@ wifi: ec1@Prophetech
 Wki地址：http://192.168.10.254:9002
 
 测试云平台地址：http://192.168.11.201
+
+
+mdadm命令：
+mdadm –create –verbose /dev/md0 –level=0 –raid-devices=3 /dev/sdb1 /dev/sdc1 /dev/sdd1
+–level表示创建的阵列模式，–raid-devices表示参与阵列的磁盘数量。
+也可以这样表达，意思是一样的：
+mdadm -Cv /dev/md0 -l0 -n3 /dev/sd[bcd]1
+
+
+firewall-cmd位于firewalld包中，systemctl位于systemd包中。
+yum install firewalld systemd -y
+
+
+lsb_release -a命令：
+yum install -y redhat-lsb
+
+逻辑卷命令和raid命令：
+yum install -y lvm2 mdadm
+
+pvcreate vgcreate lvcreate
+eg:
+pvcreate /dev/sdb /dev/sdc      //创建2个物理卷
+vgcreate vg01 /dev/sd[bc]       //创建vg01卷组
+lvcreate -n lv01 -L 500M vg01   //创建使用vg01卷组创建lv01逻辑卷
+
+//使用sd[def]三块磁盘创建3列的软raid5类型的磁盘阵列
+mdadm -Cv /dev/md5 -n3 -l5 /dev/sd[def]
+
+yum install –y targetcli                //iscsi target 管理工具
+yum -y install iscsi-initiator-utils    //iscsi initiator 管理工具
+yum -y install lsscsi                   //lsscsi 命令
+
+//查看设备的磁盘列表
+fdisk -l
+
+systemctl start target      ##启动iscsi target服务 
+systemctl enable target     ##开机启动iscsi target服务 
+systemctl stop firewalld    ##关闭防火墙 
+systemctl disable firewalld ##开机不启动防火墙
+
+targetcli:
+//建立一个块存储，提供target的存储设备
+/backstores/block create name.disk /dev/diskname
+eg:
+//这里应该是只要使用的是磁盘设备即可不管是物理磁盘或是逻辑磁盘或是磁盘阵列
+/backstores/block create test.disk /dev/vdb
+
+//创建iqn（iscsi限定名称, iscsi qualified name）
+//(每个iqn相当于一个存储配置对象，配置iqn即配置实际访问硬盘、访问账户、访问ip:port等，
+//target上可以配置多个iqn，每个iqn可以被挂载到一个initiator客户设备上)
+//每个发起端和目标需要唯一名称进行表示最好的作法是使用一个在INTERNET上独一无二的名称。
+//iscsi里各个角色（initiator和target）都可以通过iqn号来逻辑寻址。
+//一个iqn号由四部分组成：
+//采用  iqn.yyyy-mm.{reserve domain}:label的格式
+//      iqn.日期.域名:域名组织分配的名字
+//例如: iqn.2019-01.com.iscsi:storage.disk1
+/iscsi create iqn.2019-01.com.iscsi:storage.disk1
+
+//创建lun（Logical Unit Number，即在iqn中指定实际存储设备）
+//iqn对应的luns中create指定/backstores/block/中创建的存储设备
+/iscsi/iqn.2019-01.com.iscsi:storage.disk1/tpg1/luns create /backstores/block/test.disk
+
+//创建acl允许某个iqn（这里iqn可以指代某个initiator即用户）访问target的此iqn
+/iscsi/iqn.2019-01.com.iscsi:storage.disk1/tpg1/acls create iqn.2019-01.com.iscsi:initiator.109
+//设置访问账户密码
+/iscsi/iqn.2019-01.com.iscsi:storage.disk1/tpg1/acls/iqn.2019-01.com.iscsi:initiator.109 set auth userid=root
+/iscsi/iqn.2019-01.com.iscsi:storage.disk1/tpg1/acls/iqn.2019-01.com.iscsi:initiator.109 set auth password=123456
+
+//portal(ip port配置，可以默认不配置)
+/iscsi/iqn.2019-01.com.iscsi:storage.disk1/tpg1/portals create 0.0.0.0 3260
+/iscsi/iqn.2019-01.com.iscsi:storage.disk1/tpg1/portals delete 0.0.0.0 3260
+
+clearconfig confirm=True    ##清除iscsi的所有配置信息
+
+
+initiator:(client端)
+yum -y install iscsi-initiator-utils
+//修改target端acl下允许登录的iqn name 
+vi /etc/iscsi/initiatorname.iscsi
+//如有密码修改CHAP密码
+vi /etc/iscsi/iscsid.conf
+
+systemctl start iscsi   //启动iscsi initiator
+systemctl enable iscsi  //设置开机启动
+systemctl restart iscsi //重启
+
+//发现指定ip的可用iscsi存储设备
+[root@openstack-2 ~]# iscsiadm -m discovery -t st -p 192.168.11.110
+192.168.11.110:3260,1 iqn.2019-01.com.iscsi:storage.disk1
+
+//登录target上的一个或多个iscsi目标
+iscsiadm -m node -p 192.168.11.110 -l
+iscsiadm -m node -T iqn.2019-01.com.iscsi:storage.disk1 -p 192.168.11.110 -l
+//登出
+iscsiadm -m node -p 192.168.11.110 -u
+iscsiadm -m node -T iqn.2019-01.com.iscsi:storage.disk1 -p 192.168.11.110 -u
+//删除iscsi target
+iscsiadm -m node -T iqn.2019-01.com.iscsi:storage.disk1 -p 192.168.11.110 -o delete
+
+
+fdisk -l (登录之后已经自动挂载成功一半在 /dev目录下)
+tree -C /var/lib/iscsi/     ##查看ISCSI目标 
+
+mkfs.xfs /dev/sda       ##格式化分区 
+mount /dev/sda /mnt/sda ##挂载
+umount /mnt/sda
+df -hT                  ##查看挂载结果
+blkid /dev/sda          ##查看UUID 
+[root@openstack-2 sda]# blkid /dev/sda
+/dev/sda: UUID="f9c83f73-a354-425c-97b9-54880b8f637d" TYPE="xfs" 
+
+(_netdev需要网络服务支持)
+vi /etc/fstab           ##编辑开机查看文件设置永久挂载 
+UUID=f9c83f73-a354-425c-97b9-54880b8f637d /mnt/sda                xfs     defaults,_netdev    0 0
+
+
