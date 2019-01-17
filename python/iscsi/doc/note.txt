@@ -7,6 +7,8 @@ Wki地址：http://192.168.10.254:9002
 
 测试云平台地址：http://192.168.11.201
 
+快速创建大文件
+dd if=/dev/zero of=test.block bs=1M count=1000
 
 mdadm命令：
 mdadm –create –verbose /dev/md0 –level=0 –raid-devices=3 /dev/sdb1 /dev/sdc1 /dev/sdd1
@@ -46,7 +48,7 @@ systemctl enable target     ##开机启动iscsi target服务
 systemctl stop firewalld    ##关闭防火墙 
 systemctl disable firewalld ##开机不启动防火墙
 
-targetcli:
+targetcli:(target配置 /etc/target/saveconfig.json)
 //建立一个块存储，提供target的存储设备
 /backstores/block create name.disk /dev/diskname
 eg:
@@ -70,6 +72,8 @@ eg:
 
 //创建acl允许某个iqn（这里iqn可以指代某个initiator即用户）访问target的此iqn
 /iscsi/iqn.2019-01.com.iscsi:storage.disk1/tpg1/acls create iqn.2019-01.com.iscsi:initiator.109
+//指定mapped_lun和lun的映射关系                                                                  指定mapped_lun编号 指定lun编号
+/iscsi/iqn.2019-01.com.iscsi:storage.disk1/tpg1/acls/iqn.2019-01.com.iscsi:initiator.109 create mapped_lun=0 tpg_lun_or_backstore=0
 //设置访问账户密码
 /iscsi/iqn.2019-01.com.iscsi:storage.disk1/tpg1/acls/iqn.2019-01.com.iscsi:initiator.109 set auth userid=root
 /iscsi/iqn.2019-01.com.iscsi:storage.disk1/tpg1/acls/iqn.2019-01.com.iscsi:initiator.109 set auth password=123456
@@ -122,3 +126,26 @@ vi /etc/fstab           ##编辑开机查看文件设置永久挂载
 UUID=f9c83f73-a354-425c-97b9-54880b8f637d /mnt/sda                xfs     defaults,_netdev    0 0
 
 
+question:
+target.PNG中iqn.2019-01.com.iscsi:initiator.107和iqn.2019-01.com.iscsi:initiator.109的关系？
+(理论上是同一块盘，实际用法不建议如此用，实际使用上一个target即iscsi下的iqn对应一个主机)
+
+
+iscsi python 包：
+python-rtslib
+python-rtslib-doc
+
+python setup.py build
+python setup.py install 
+
+setup.py 帮助你纪录安装细节方便你卸载
+python setup.py install --record log
+这时所有的安装细节都写到 log 里了
+想要卸载的时候
+cat log | xargs rm -rf
+就可以干净卸载了
+
+安装epel扩展源
+yum -y install epel-release
+安装pip
+yum -y install python-pip
