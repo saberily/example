@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os, sys, uuid
-import target
+import targetcli as target
 
 
 g_cmd_str = '''

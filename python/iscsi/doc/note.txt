@@ -107,6 +107,7 @@ iscsiadm -m node -T iqn.2019-01.com.iscsi:storage.disk1 -p 192.168.11.110 -l
 iscsiadm -m node -p 192.168.11.110 -u
 iscsiadm -m node -T iqn.2019-01.com.iscsi:storage.disk1 -p 192.168.11.110 -u
 //删除iscsi target
+iscsiadm -m node -T -o delete
 iscsiadm -m node -T iqn.2019-01.com.iscsi:storage.disk1 -p 192.168.11.110 -o delete
 
 
@@ -149,3 +150,25 @@ cat log | xargs rm -rf
 yum -y install epel-release
 安装pip
 yum -y install python-pip
+
+
+
+pip install python-openstackclient
+pip install --upgrade python-openstackclient
+pip uninstall python-openstackclient
+
+
+
+eg:
+curl -v -s -X POST http://192.168.11.201:5000/v3/auth/tokens?nocatalog \
+     -H "Content-Type: application/json" \
+     -d '{ "auth": { "identity": { "methods": ["password"], \
+     "password": {"user": {"domain": {"name": "'"Default"'"}, \
+     "name": "'"zhaojiangbo"'", "password": "'"ZJb920719"'"} } }, \
+     "scope": { "project": { "domain": { "name": "'"Default"'" }, \
+     "name":  "'"zhaojiangbo"'" } } }}' \
+     | python -m json.tool
+
+curl -s -H "X-Auth-Token: d774b83d45f24dd691f17e1add6cae5c" \
+     http://192.168.11.201:8774/v2.1/flavors \
+     | python -m json.tool
