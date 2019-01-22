@@ -20,7 +20,7 @@ class OpenStackClient():
         self.generate_token()
 
     def rest_api(self, url, headers=None, params=None, method=None):
-        print(url)
+        # print(url)
         tmp_headers = self.headers
         if None != headers:
             for key, value in headers.items():
@@ -38,7 +38,7 @@ class OpenStackClient():
             # if 300 == err.code:
             ret_headers = err.headers
             ret_data = err.read()
-            print(err.code)
+            # print(err.code)
         except httplib.BadStatusLine as err:
             ret_headers = None
             msg["Request(Time Out) URL"] = url
@@ -89,7 +89,7 @@ class OpenStackClient():
         self.headers["X-Auth-Token"] = self.token
         objdata = json.loads(data)
         for element  in objdata["token"]["catalog"]:
-            print(element ["type"])
+            # print(element ["type"])
             if element ["type"] == "compute":
                 for endpoint in element["endpoints"]:
                     if endpoint["interface"] == "public":
